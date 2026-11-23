@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daniel Xavier Garcia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE   personal portfolio: modern, confident, quiet luxury; small refined type
+   IDEA    a bookshelf: his career as book spines on one shelf, each spine a job
+   PICTURE spines standing on a shelf, height by time spent, colour by area of work; click a spine to jump to that job
+   COLOUR  deep ink hero #0c1726 in both themes, white body; coral, sky and sand as the three areas
+   TYPE    Plus Jakarta Sans display + Inter text
+   LAYOUT  hero: text left, shelf right on laptop; phone: text, then shelf full width */
+:root{color-scheme:light dark;
+--bg:light-dark(#ffffff,#0a121e);
+--ink:light-dark(#0e1726,#e9edf4);
+--soft:light-dark(#5b6476,#a3adbf);
+--line:light-dark(#e7eaf0,#1e2a3c);
+--panel:light-dark(#f6f7fa,#101b2b);
+--night:#0c1726;
+--coral:#ff7a59;
+--sky:#7cc4ff;
+--sand:#f1cf72;
+--accent:light-dark(#e2553a,#ff8a6c)}
+:root[data-theme=light]{color-scheme:light}
+:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:70px;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif;overflow-x:clip;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto}
+.band{padding-block:clamp(48px,6vw,88px);padding-left:max(5vw,16px);padding-right:max(5vw,16px)}
+h1,h2,h3{font-family:"Plus Jakarta Sans",Inter,sans-serif;letter-spacing:-.025em;line-height:1.08;margin:0;text-wrap:balance}
+h1{font-size:clamp(36px,4.6vw,54px);font-weight:800}
+h2{font-size:clamp(26px,3vw,36px);font-weight:700}
+h3{font-size:18px;font-weight:700;letter-spacing:-.01em}
+p{margin:0 0 12px;max-width:64ch}
+.sub{color:var(--soft);font-size:17px;margin-top:10px}
+nav{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--night) 88%,transparent);backdrop-filter:blur(10px);color:#fff}
+nav .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:4px 26px;padding:14px max(5vw,16px)}
+nav .me{font:700 16px "Plus Jakarta Sans",sans-serif;margin-right:auto;text-decoration:none}
+nav .links{display:flex;gap:22px;flex-wrap:wrap}
+nav .links a{text-decoration:none;font-size:14px;color:#c6cfdd;padding:6px 0}
+nav .links a:hover,nav .links a:focus-visible{color:#fff}
+.hero{background:var(--night);color:#fff;padding-top:clamp(40px,5vw,72px);padding-bottom:0}
+.hgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:40px 56px;align-items:end}
+.htext{padding-bottom:clamp(40px,5vw,72px)}
+.hello{font-size:15px;color:var(--coral);font-weight:600;margin-bottom:14px}
+.hero h1 span{color:#9fb0c8;font-weight:700}
+.hero .sub{color:#b9c4d6;max-width:46ch}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{font-size:13px;padding:5px 11px;border-radius:999px;border:1px solid #2c3d55;color:#d3dbe8}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;font:600 15px Inter,sans-serif;text-decoration:none;transition:transform .2s ease,background .2s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn:focus-visible{outline:2px solid var(--coral);outline-offset:3px}
+.btn.main{background:var(--coral);color:#1a0d08}
+.btn.ghost{border:1px solid #3a4d68;color:#fff}
+.shelfbox{position:relative}
+.shelf{display:flex;align-items:flex-end;gap:5px;height:330px;padding:0 6px}
+.spine{flex:1 1 0;max-width:58px;border-radius:4px 4px 1px 1px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:10px 0 12px;color:#121a28;text-decoration:none;transform-origin:bottom;animation:up .8s cubic-bezier(.2,.7,.2,1) both;box-shadow:inset -6px 0 0 rgba(0,0,0,.12),inset 2px 0 0 rgba(255,255,255,.35);transition:transform .2s ease}
+.spine:hover,.spine:focus-visible{transform:translateY(-10px);outline:none}
+.spine .yr{font:700 12px Inter,sans-serif;opacity:.75}
+.spine .nm{writing-mode:vertical-rl;transform:rotate(180deg);font:700 13px "Plus Jakarta Sans",sans-serif;letter-spacing:.01em;white-space:nowrap}
+.spine i{position:absolute;left:0;right:0;height:3px;background:rgba(0,0,0,.18)}
+.spine i.a{top:34px}.spine i.b{bottom:40px}
+.doc{background:var(--sky)}.edu{background:var(--coral)}.ead{background:var(--sand)}
+.board{height:16px;background:linear-gradient(#3a2a1f,#24180f);border-radius:2px;box-shadow:0 10px 24px rgba(0,0,0,.35)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:#b9c4d6;padding:14px 0 22px}
+.legend b{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:0}
+@keyframes up{from{transform:scaleY(.1);opacity:0}to{transform:none;opacity:1}}
+.areas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:32px}
+.area{padding:24px;border-radius:16px;background:var(--panel);border:1px solid var(--line)}
+.dot{width:36px;height:36px;border-radius:10px;margin-bottom:16px;display:grid;place-items:center}
+.dot svg{width:20px;height:20px}
+.area p{color:var(--soft);font-size:15.5px;margin:8px 0 14px}
+.area ul{list-style:none;margin:0;padding:0;font-size:14.5px}
+.area li{padding:7px 0;border-top:1px solid var(--line)}
+.nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin-top:40px;padding-top:32px;border-top:1px solid var(--line)}
+.nums b{display:block;font:800 clamp(30px,3.4vw,42px)/1 "Plus Jakarta Sans",sans-serif;letter-spacing:-.03em;white-space:nowrap}
+.nums span{font-size:14px;color:var(--soft)}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.1fr);gap:28px 64px}
+.sticky{position:sticky;top:96px;align-self:start}
+.tl{list-style:none;margin:0;padding:0}
+.tl li{display:grid;grid-template-columns:8.5em minmax(0,1fr);gap:4px 24px;padding:20px 0;border-top:1px solid var(--line)}
+.tl li:target{background:var(--panel);border-radius:12px;padding-inline:14px}
+.when{font-size:14px;color:var(--soft);white-space:nowrap;padding-top:2px}
+.tl .org{font-size:14.5px;color:var(--soft);margin:2px 0 6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tl .org b{width:8px;height:8px;border-radius:50%;display:inline-block}
+.tl p{font-size:15.5px;margin:0}
+.now{font:600 12px Inter,sans-serif;color:var(--accent);margin-left:8px}
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(16em,1fr));gap:28px 40px;margin-top:28px}
+.skills h3{font-size:16px;margin-bottom:12px}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-size:14px;padding:6px 12px;border-radius:999px;background:var(--panel);border:1px solid var(--line)}
+.contact{background:var(--night);color:#fff}
+.cgrid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px 56px;align-items:center}
+.contact .sub{color:#b9c4d6}
+.facts{list-style:none;margin:0;padding:0;font-size:15px;color:#d3dbe8}
+.facts li{padding:12px 0;border-bottom:1px solid #22324a}
+footer{background:var(--night);color:#7f8ba0;font-size:13px;padding:0 max(5vw,16px) 28px}
+@media(prefers-reduced-motion:reduce){.spine{animation:none;transition:none}.btn{transition:none}html{scroll-behavior:auto}}
+@media(max-width:920px){.hgrid,.two,.cgrid{grid-template-columns:minmax(0,1fr)}.sticky{position:static}.htext{padding-bottom:0}.areas{grid-template-columns:minmax(0,1fr)}.nums{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.shelf{height:260px;gap:3px}.spine .yr{display:none}.spine .nm{font-size:12px}.tl li{grid-template-columns:minmax(0,1fr)}nav .links{gap:16px}}
+</style>
+</head>
+<body>
+<nav aria-label="Seções">
+  <div class="wrap">
+    <a class="me" href="#topo">Daniel Xavier Garcia</a>
+    <span class="links">
+      <a href="#atuacao">Atuação</a>
+      <a href="#trajetoria">Trajetória</a>
+      <a href="#competencias">Competências</a>
+      <a href="#contato">Contato</a>
+    </span>
+  </div>
+</nav>
+
+<header class="band hero" id="topo">
+  <div class="wrap hgrid">
+    <div class="htext">
+      <div class="hello">Bibliotecário · Gestão documental · Tutor EAD</div>
+      <h1>Informação organizada, <span>gente bem atendida.</span></h1>
+      <p class="sub">Há mais de 12 anos transformo acervos, documentos e conteúdos em algo fácil de encontrar e de aprender. Hoje sou tutor do curso de Biblioteconomia da UNIASSELVI.</p>
+      <div class="chips"><span class="chip">São Paulo – SP</span><span class="chip">Remoto, híbrido ou presencial</span><span class="chip">PcD</span></div>
+      <div class="cta">
+        <a class="btn main" href="https://www.linkedin.com/in/daniel-xavier-garcia-bibliotecario/">Ver LinkedIn</a>
+        <a class="btn ghost" href="#trajetoria">Minha trajetória</a>
+      </div>
+    </div>
+    <div class="shelfbox">
+      <div class="shelf" id="shelf" role="list" aria-label="Trajetória como estante: cada livro é um emprego"></div>
+      <div class="board"></div>
+      <div class="legend"><span><b class="edu"></b>Bibliotecas</span><span><b class="doc"></b>Gestão documental</span><span><b class="ead"></b>Educação a distância</span></div>
+    </div>
+  </div>
+</header>
+
+<section class="band" id="atuacao">
+  <div class="wrap">
+    <h2>Três frentes, uma mesma base</h2>
+    <p class="sub">A técnica da Biblioteconomia aplicada onde a informação precisa funcionar.</p>
+    <div class="areas">
+      <article class="area">
+        <div class="dot" style="background:color-mix(in srgb,var(--sky) 30%,transparent)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h7M9 16h7"/></svg></div>
+        <h3>Gestão documental</h3>
+        <p>Implantação e validação de sistemas de GED, com plano de classificação e Tabela de Temporalidade.</p>
+        <ul><li>Stone, AI Solutions e Mayacom</li><li>Assinatura digital no D4Sign</li><li>Diagnóstico de acervos</li></ul>
+      </article>
+      <article class="area">
+        <div class="dot" style="background:color-mix(in srgb,var(--sand) 40%,transparent)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4M10 8l4 2-4 2z"/></svg></div>
+        <h3>Educação a distância</h3>
+        <p>Tutoria online e produção de disciplinas completas, do plano de ensino à videoaula.</p>
+        <ul><li>Tutor na UNIASSELVI</li><li>Conteudista na UNICV</li><li>Questões no padrão ENADE</li></ul>
+      </article>
+      <article class="area">
+        <div class="dot" style="background:color-mix(in srgb,var(--ink) 10%,transparent)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M9 11h6M9 14h4"/></svg></div>
+        <h3>Atendimento e equipes</h3>
+        <p>Alunos, professores, cidadãos e times internos atendidos com clareza e dentro do prazo.</p>
+        <ul><li>Chamados por SLA na Stone</li><li>Jira Service Management</li><li>Liderança e treinamento de equipes</li></ul>
+      </article>
+    </div>
+    <div class="nums">
+      <div><b>12+ anos</b><span>de carreira</span></div>
+      <div><b>8 anos</b><span>na Escola Naval, Marinha do Brasil</span></div>
+      <div><b>10</b><span>instituições e empresas</span></div>
+      <div><b>950</b><span>imagens catalogadas num só projeto</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="trajetoria" style="padding-top:0">
+  <div class="wrap two">
+    <div class="sticky">
+      <h2>Trajetória</h2>
+      <p class="sub">Da Marinha do Brasil a fintechs e universidades. Toque num livro da estante para ir direto à experiência.</p>
+    </div>
+    <ol class="tl" id="tl"></ol>
+  </div>
+</section>
+
+<section class="band" id="competencias" style="padding-top:0">
+  <div class="wrap">
+    <h2>Competências</h2>
+    <div class="skills" id="sk"></div>
+  </div>
+</section>
+
+<section class="band contact" id="contato">
+  <div class="wrap cgrid">
+    <div>
+      <h2>Vamos conversar?</h2>
+      <p class="sub">Aberto a vagas de tutoria e docência EAD, gestão documental, bibliotecas e customer experience.</p>
+      <div class="cta">
+        <a class="btn main" href="https://www.linkedin.com/in/daniel-xavier-garcia-bibliotecario/">Falar pelo LinkedIn</a>
+      </div>
+    </div>
+    <ul class="facts">
+      <li>Bacharel em Biblioteconomia, com registro no CRB</li>
+      <li>linkedin.com/in/daniel-xavier-garcia-bibliotecario</li>
+      <li>São Paulo – SP · disponível para trabalho remoto</li>
+    </ul>
+  </div>
+</section>
+<footer><div class="wrap">Daniel Xavier Garcia · 2026</div></footer>
+
+<script>
+{
+const jobs=[
+ {id:"uniasselvi",s:"UNIASSELVI",k:"ead",m:21,y:"2025",when:"mar/2025 – atual",t:"Tutor EAD – Biblioteconomia",o:"UNIASSELVI · remoto",d:"Acompanho alunos da graduação online, corrijo avaliações e apoio docentes e coordenação.",now:1},
+ {id:"unicv",s:"UNICV",k:"ead",m:3,y:"2025",when:"ago – out/2025",t:"Professor conteudista",o:"UNICV – Centro Universitário Cidade Verde · remoto",d:"Produzi uma disciplina completa: plano de ensino, e-book, questões ENADE, videoaulas e podcast."},
+ {id:"stone",s:"Stone",k:"doc",m:3,y:"2024",when:"set – nov/2024",t:"Analista administrativo jr. – CEDOC",o:"Stone · São Paulo",d:"Plano de permissões de assinatura digital no D4Sign, validação de GED e chamados atendidos no SLA."},
+ {id:"anhanguera",s:"Anhanguera",k:"edu",m:6,y:"2024",when:"mai – out/2024",t:"Coordenador de biblioteca",o:"Anhanguera Educacional · Itapecerica da Serra",d:"Coordenei a equipe, preparei a unidade para auditorias externas e cuidei do tratamento técnico do acervo."},
+ {id:"gpes",s:"GPeS",k:"doc",m:2,y:"2024",when:"ago – set/2024",t:"Bibliotecário freelance",o:"GPeS | Comunicamos Saúde · remoto",d:"Catalogação de 950 imagens, metadados em GED e proposta de política de arquivamento."},
+ {id:"ai",s:"AI Solutions",k:"doc",m:4,y:"2024",when:"fev – mai/2024",t:"Especialista técnico",o:"AI Solutions · Cuiabá",d:"Requisitos, mapeamento de processos, Tabela de Temporalidade no sistema e chamados no Jira."},
+ {id:"sesi",s:"SESI",k:"edu",m:8,y:"2023",when:"ago/2023 – mar/2024",t:"Bibliotecário",o:"SESI Mato Grosso · Várzea Grande",d:"Rodas de leitura, mediação literária, educação inclusiva e supervisão da equipe."},
+ {id:"limpurb",s:"Limpurb",k:"doc",m:5,y:"2023",when:"abr – ago/2023",t:"Atendimento e processos",o:"Limpurb · Cuiabá",d:"Atendimento ao público, tramitação de processos e organização do arquivo do setor."},
+ {id:"mayacom",s:"Mayacom",k:"doc",m:8,y:"2022",when:"ago/2022 – mar/2023",t:"Bibliotecário consultor e gerente de projetos",o:"Mayacom Soluções em Tecnologias · Cuiabá",d:"Projetos de organização documental, liderança de equipes e controle de qualidade de metadados."},
+ {id:"marinha",s:"Marinha do Brasil",k:"edu",m:96,y:"2014",when:"mai/2014 – abr/2022",t:"Bibliotecário – oficial militar temporário",o:"Marinha do Brasil – Escola Naval · Rio de Janeiro",d:"Chefiei biblioteca, museu, gráfica e sala de provas; orientei TCCs e normalizei apostilas didáticas."}
+];
+const col={doc:"var(--sky)",edu:"var(--coral)",ead:"var(--sand)"};
+const h=m=>Math.round(52+48*Math.log(m)/Math.log(96));
+document.getElementById('shelf').innerHTML=jobs.slice().reverse().map((j,i)=>`<a role="listitem" class="spine ${j.k}" href="#${j.id}" style="height:${h(j.m)}%;animation-delay:${i*60}ms" title="${j.t} · ${j.when}"><i class="a"></i><span class="nm">${j.s}</span><span class="yr">${j.y}</span><i class="b"></i></a>`).join('');
+document.getElementById('tl').innerHTML=jobs.map(j=>`<li id="${j.id}"><span class="when">${j.when}</span><div><h3>${j.t}${j.now?'<span class="now">● atual</span>':''}</h3><div class="org"><b style="background:${col[j.k]}"></b>${j.o}</div><p>${j.d}</p></div></li>`).join('');
+const skills=[
+ ["Gestão documental",["GED","Tabela de Temporalidade","Plano de classificação","Políticas de arquivamento","Assinatura digital"]],
+ ["Biblioteconomia",["Catalogação","Classificação","Indexação","Metadados","Desenvolvimento de coleções","Serviço de referência"]],
+ ["Educação a distância",["Tutoria em AVA","Plano de ensino","E-books","Questões ENADE","Videoaulas e podcast","Orientação de TCC"]],
+ ["Atendimento e processos",["Gestão de chamados","SLA","Análise de requisitos","Mapeamento de processos","Treinamento de equipes"]],
+ ["Ferramentas",["Jira Service Management","D4Sign","SharePoint","TOTVS SGE e RM","HTML"]]
+];
+document.getElementById('sk').innerHTML=skills.map(s=>`<div><h3>${s[0]}</h3><div class="pills">${s[1].map(p=>`<span class="pill">${p}</span>`).join('')}</div></div>`).join('');
+}
+</script>
+</body>
+</html>
